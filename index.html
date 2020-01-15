@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>To Do List</title>
+    <!-- Passo 1 - Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- passo 3 - tudo retirado do bootstrap e adaptado para nosso modelo -->
+    <header>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">To Do List</a>
+        </nav>
+    </header>
+
+    <!-- passo 4 - main com container para tamanho fixo e com bordas -->
+    <main class="container">
+        <!-- título -->
+        <div class="row">
+            <div class="col-md-12 text-center mt-3">
+                <h2>A fazer:</h2>
+            </div>
+        </div>
+        <!-- quadro de tarefas -->
+        <div class="row" id="board">
+
+            <!-- tarefas fixas apagadas no passo 9 para testar a renderização -->
+
+        </div>
+
+        <!-- <button id="add">Adicionar Tarefas</button> -->
+        <!-- id para fazer que este botao saiba o que estah sendo solicitado quando clicado -->
+        <!-- retirado a etapa 7 abaixo -->
+
+    </main>
+
+    <!-- passo 7 - criando footer para fixar o botao de adicionar tarefa com campo para escrever a descricao da tarefa (titulo) -->
+    <footer class="bg-dark">
+        <div class="row">
+            <div class="col-md-8">
+                <input type="text"id="novaTarefa" class="col-lg-10" placeholder="Digite aqui a descrição da nova tarefa">
+            </div>
+            <div class="col-md-4">
+                <img src="images/botao_add_3.jfif" id="add" alt="" class="botaoCheck"> 
+            </div>
+        </div>
+    </footer>
+
+    <!-- Passo 2 - Arquivos js -->
+    <script src="javascript/javascript.js"></script>
+
+</body>
+
+</html>
