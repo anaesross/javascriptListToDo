@@ -31,11 +31,16 @@ if (localStorage.getItem('listaTarefas')) {
 mostrarNaTela(listaTarefas);
 
 // passo 5 - continuacao
-buttonAdd.onclick = function () {
+buttonAdd.onclick = function (event){
+
     // passo 8 - continuacao:
     let valorDigitado = inputAdd.value;
     // apos criar localStorage, para dar push da tarefa para ele:
     listaTarefas.push(valorDigitado)
+
+    gerarTarefa(valorDigitado, listaTarefas.length - 1);  // chamando a outra função para executar dentro da function onclick, o
+    //conteúdo abaixo comentado estava redundante.
+
 
     // passo 5 - continuacao
     // onclick = quando o botao eh acionado
@@ -45,7 +50,7 @@ buttonAdd.onclick = function () {
     // alert("Estou no clik do botao")
 
 
-    // passo 6 - para que cada nova tarefa crie um novo box
+   /*  // passo 6 - para que cada nova tarefa crie um novo box
     // createElement = para criar um box novo, dizendo no parenteses que elemento é esse, no caso do  primeiro uma div. Estamos basicamente replicando a estrutura montada no html e bootstrap:
     let tarefa = document.createElement('div');
     // puxar os atributos da classe tarefa:
@@ -78,7 +83,7 @@ buttonAdd.onclick = function () {
     tarefa.appendChild(buttonCheck);
 
     // colocar os box "tarefa" dentro do "board"
-    board.appendChild(tarefa);
+    board.appendChild(tarefa); */
 
     // testando agora no navegador, ao apertar o botao "adicionar tarefas", aparece um novo box de tarefa.
 
@@ -92,14 +97,21 @@ buttonAdd.onclick = function () {
 // criar functions e copiar o box acima na gerarTarefa
 // item eh a informação que estamos armazenando (box tarefa nova)
 function mostrarNaTela(listaTarefas) {
-    for(let item of listaTarefas){
+/*     for(let item of listaTarefas){
         gerarTarefa(item)
-    }
+    } */
+    board.innerHTML= "" //estou substituindo dentro do html nada, vazio, limpei o board
+    listaTarefas.forEach(function(valor, posicao){
+        gerarTarefa(valor, posicao); //valor = conteudo digitado e posicao = indice no array
+    })
 }
 
-function gerarTarefa(valorDigitado) {
+function gerarTarefa(valorDigitado, posicao) {
+    
     let tarefa = document.createElement('div');
     tarefa.setAttribute('class', 'tarefa');
+    tarefa.setAttribute('posicao', posicao);//posicao  = indice do array de cada tarefa
+
 
     let titulo = document.createElement('div');
     titulo.setAttribute('class', 'col=md-8');
@@ -113,6 +125,38 @@ function gerarTarefa(valorDigitado) {
     imgCheck.setAttribute('src', 'images/botao_check.png');
 
     buttonCheck.appendChild(imgCheck);
+
+    //definir um evento na tarefa que estou criando.
+    imgCheck.onclick = function(){
+        let tarefaPai = event.target.parentNode.parentNode; //aqui atribuimos uma variavel para o elemento que 
+        //queremos no caso seria a div que contem a class tarefa
+        //selecionar o elemento printa no console , aqui pegamos a div da classe tarefa
+        //console.log(event.target.parentNode.parentNode); //img (pai div) / div (pai)div class  = tarefa
+        
+        let posicaoTarefa = tarefa.getAttribute('posicao'); //pegar a posicao do elementro dentro do array para
+        //remover ele do storage
+
+        listaTarefas = listaTarefas.filter(function(valor,posicao){ //filtro cria um novo array apenas com os 
+            //elementos que eu quero, no caso eu exclui uma tarefa, ele forma um novo array sem a tarefa excluida
+            return posicao != posicaoTarefa;
+        });
+        mostrarNaTela(listaTarefas); //mostra na tela as novas posições do array quando uma tarefa for elimidada
+
+        console.log(listaTarefas);
+
+        /*listaTarefas.splice(posicaTarefa); // splice vai remover o elemento no array, 
+        //ele retorna apenas o elemento removido
+
+        console.log(listaTarefas); // visualizar no console a ação */
+        localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas)) // salva no storage a nova lista de tarefas
+        //remover a tarefa
+        tarefaPai.remove();
+        //como eu ja sei que o elemento que quero é a classe tarefa eu poderia fazer direto :
+        //tarefa.remove();
+    }
+
+    //parent node pega o  pai do elemento que estamos selecionando 
+
     tarefa.appendChild(titulo);
     tarefa.appendChild(buttonCheck);
 

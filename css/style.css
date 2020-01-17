@@ -3,10 +3,14 @@
     border-radius: 20px;
     padding: 30px;
     display: flex;
-    min-width: 400px;
+    min-width: 200px;
 }
 
 .botaoCheck {
+    width: 40px;
+}
+
+.botaoCheckAdd {
     width: 40px;
 }
 
